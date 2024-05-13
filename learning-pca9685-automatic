@@ -1,0 +1,44 @@
+// aprendendo a utilizar o módulo PWM PCA9685. VAMBORA!!!!!!!!!!! VAI DAR CERTO!!!!!!! 
+//inclusão de bibliotecas
+#include <Wire.h>
+#include <Adafruit_PWMServoDriver.h>
+
+
+// criação do objeto com todas as funções e propriedades para utilizar e código do módulo
+Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(0x40);
+
+
+// definindo pulsos máximos dos servos e frequência (taxa de atualização)
+#define SERVOMIN  100 // mínimos e máximos configurados para girar 180 graus certinho
+#define SERVOMAX  650
+
+#define SERVO_FREQ 50 // Analog servos run at ~50 Hz updates
+
+// protótipo das funções
+void posicao(uint8_t ser, double pos);
+
+void setup() {
+  // put your setup code here, to run once:
+  pwm.begin();
+  pwm.setPWMFreq(SERVO_FREQ);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
+
+void posicao(uint8_t ser, double pos) 
+  double pulselength = 1000000;
+
+  pulselength = 1000000;   // 1,000,000 us per second
+  pulselength /= SERVO_FREQ;   // Analog servos run at ~60 Hz updates
+  Serial.print(pulselength); Serial.println(" us per period"); 
+  pulselength /= 4096;  // 12 bits of resolution
+  Serial.print(pulselength); Serial.println(" us per bit"); 
+  pulse *= 1000000;  // convert input seconds to us
+  pulse /= pulselength;
+  int bora = map(pulse, )
+  Serial.println(pulse);
+  pwm.setPWM(n, 0, pulse);
+}
