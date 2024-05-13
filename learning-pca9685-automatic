@@ -1,4 +1,7 @@
 // aprendendo a utilizar o módulo PWM PCA9685. VAMBORA!!!!!!!!!!! VAI DAR CERTO!!!!!!! 
+
+// FAZER: tô pegando o example "servo" e tentando redigitar tudo com as "minhas palavras" pra ver se aprendo a usar o módulo para depois adicionar no menu de opções. Complemente o estudo procurando por vídeo no YT.
+
 //inclusão de bibliotecas
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
