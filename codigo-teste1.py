@@ -43,28 +43,28 @@ while True:
 
     cv2.rectangle(frame, (62, 292), (138, 368), (255, 255, 255), 2)
     cv2.putText(frame, '1', (85, 350), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-    cv2.rectangle(frame, (114, 116 + 15), (190, 192 + 15), (255, 255, 255), 2)
-    cv2.putText(frame, '2', (137, 174 + 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255),2)
-    cv2.rectangle(frame, (262 + 30, 62 + 5), (338 + 30, 138 + 5), (255, 255, 255),2)
-    cv2.putText(frame, '3', (285 + 30, 120 + 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-    cv2.rectangle(frame, (362, 277), (438, 353), (255, 255, 255), 2)
-    cv2.putText(frame, '4', (385, 335), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-    cv2.rectangle(frame, (472 + 30, 292), (548 + 30, 368), (255, 255, 255), 2)
-    cv2.putText(frame, '5', (495 + 30, 350), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+    cv2.rectangle(frame, (114, 131), (190, 207), (255, 255, 255), 2)
+    cv2.putText(frame, '2', (137, 189), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+    cv2.rectangle(frame, (283, 67), (359, 143), (255, 255, 255), 2)
+    cv2.putText(frame, '3', (306, 125), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+    cv2.rectangle(frame, (452, 121), (528, 207), (255, 255, 255), 2)
+    cv2.putText(frame, '4', (475, 189), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+    cv2.rectangle(frame, (505, 292), (580, 368), (255, 255, 255), 2)
+    cv2.putText(frame, '5', (525, 350), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
     frame, color_objects = detect_color(frame)
 
     for color, (cx, cy, cw, ch) in color_objects:
         if 62 < cx < 138 and 292 < cy < 368:
             cv2.putText(frame, f'{color} on White 1', (62, 280), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-        elif 114 < cx < 190 and (116 + 15) < cy < (192 + 15):
-            cv2.putText(frame, f'{color} on White 2', (162, 106 + 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255),2)
-        elif (262 + 30) < cx < (338 + 30) and (62 + 5) < cy < (138 + 5):
-            cv2.putText(frame, f'{color} on White 3', (262 + 30, 50 + 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5,(255, 255, 255), 2)
-        elif 362 < cx < 438 and 277 < cy < 353:
-            cv2.putText(frame, f'{color} on White 4', (362, 265), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-        elif (472 + 30) < cx < (548 + 30) and 292 < cy < 368:
-            cv2.putText(frame, f'{color} on White 5', (472 + 30, 280), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255),2)
+        elif 114 < cx < 190 and 131 < cy < 207:
+            cv2.putText(frame, f'{color} on White 2', (162, 121), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+        elif 283 < cx < 359 and 67 < cy < 143:
+            cv2.putText(frame, f'{color} on White 3', (283, 55), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+        elif 452 < cx < 528 and 131 < cy < 207:
+            cv2.putText(frame, f'{color} on White 4', (392, 121), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+        elif 502 < cx < 578 and 292 < cy < 368:
+            cv2.putText(frame, f'{color} on White 5', (502, 280), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
     cv2.imshow('Color Detection', frame)
 
