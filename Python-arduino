@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+import serial
+import time
 
 lower_blue = np.array([90, 50, 50])
 upper_blue = np.array([130, 255, 255])
@@ -50,15 +52,25 @@ def update_and_display_color_bases(frame, color_objects):
         elif 502 < cx < 578 and 292 < cy < 368:
             color_bases[color] = '5'
 
+    color_info = {}
+
     for color, base in color_bases.items():
         if base is not None:
             text = f'{color} is under White {base}'
             cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
             print(text)
+            color_info[color] = base
 
-    return frame
+    return frame, color_info
+
+def enviar_dados_para_arduino(color_info):
+    for cor, base in color_info.items():
+        mensagem = f'{cor},{base}\n'
+        arduino.write(mensagem.encode())
+        time.sleep(0.1)
 
 cap = cv2.VideoCapture(0)
+arduino = serial.Serial('COM3', 9600)  # Substitua 'COM3' pela porta serial do seu Arduino
 
 while True:
     ret, frame = cap.read()
@@ -81,12 +93,15 @@ while True:
 
     frame, color_objects = detect_color(frame)
 
-    frame = update_and_display_color_bases(frame, color_objects)
+    frame, color_info = update_and_display_color_bases(frame, color_objects)
 
     cv2.imshow('Color Detection', frame)
+
+    enviar_dados_para_arduino(color_info)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 cap.release()
 cv2.destroyAllWindows()
+arduino.close()
