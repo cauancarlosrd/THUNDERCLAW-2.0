@@ -1,0 +1,12 @@
+void setup() {
+  Serial.begin(9600);  // Inicializa a comunicação serial com a mesma taxa de baud do Python
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    String mensagem = Serial.readStringUntil('\n');  // Lê a mensagem recebida até encontrar o caractere de nova linha
+    String cor = mensagem.substring(0, mensagem.indexOf(','));  // Extrai o nome da cor da mensagem
+    String base = mensagem.substring(mensagem.indexOf(',') + 1);  // Extrai o número da base da mensagem
+    // Faça o que quiser com os dados recebidos, por exemplo, acender um LED
+  }
+}
