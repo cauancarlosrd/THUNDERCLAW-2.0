@@ -9,7 +9,7 @@
 #define pot5 A4
 
 // cria as variavies dos angulos de cada motor
-int motor1,motor2,motor3,motor4;
+int motor1,motor2,motor3,motor4,motor5;
 
 unsigned long mostradorTimer = 1;
 const unsigned long intervaloMostrador = 5000;
@@ -20,10 +20,6 @@ void setup() {
   Serial.begin(9600); 
 
   // atribui pinos dos servos
-  serv1.attach(pinServ1);
-  serv2.attach(pinServ2);
-  serv3.attach(pinServ3);
-  serv4.attach(pinServ4);
   
 }
 
@@ -34,7 +30,7 @@ void loop(){
   motor2 = map(analogRead(pot2),0,1023,0,180);
   motor3 = map(analogRead(pot3),0,1023,0,180);
   motor4 = map(analogRead(pot4),0,1023,0,180);
-  motor5 = map(analogread(pot5),0,1023,0,180);
+  motor5 = map(analogRead(pot5),0,1023,0,180);
 
 
    if ((millis() - mostradorTimer) >= intervaloMostrador) {
@@ -74,4 +70,3 @@ void loop(){
   delay(100);
 
 }
-
