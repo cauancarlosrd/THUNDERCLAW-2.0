@@ -30,6 +30,10 @@ void setup() {
   voltar();
 }
 
+void loop(){
+
+}
+
 void moveServo(uint8_t n, int init, int end, int del){
   if(init > end){
     for (int pulse = init; pulse > end; pulse--){
