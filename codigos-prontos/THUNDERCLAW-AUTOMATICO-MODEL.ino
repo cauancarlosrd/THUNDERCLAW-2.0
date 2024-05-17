@@ -1,5 +1,5 @@
 #include <Wire.h> // usar I2C
-#include <Adafruit_PWMServoDriver.h> // usar 
+#include <Adafruit_PWMServoDriver.h> 
 
 // criação do objeto com todas as funções e propriedades para utilizar e código do módulo
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(0x40);
@@ -27,6 +27,7 @@ void setup() {
   gbase(3, 4);
   colocar();
   gbase(4, 3);
+  voltar();
 }
 
 void moveServo(uint8_t n, int init, int end, int del){
@@ -77,13 +78,13 @@ void pegar(){
 }
 
 void colocar(){
-  moveServo(2, 400, 500, 9);    // pondo de novo
+  moveServo(2, 400, 500, 9);    // pondo no chão
   delay(500);
 
-  moveServo(5, 250, 50, 10);    //soltando
+  moveServo(5, 250, 50, 10);    // soltando
   delay(1000);
 
-  moveServo(2, 500, 400, 9);  
+  moveServo(2, 500, 400, 9);    // levantando
   delay(500);
 
 }
@@ -91,4 +92,12 @@ void colocar(){
 void gbase(int binit, int bend){
   moveServo(0, bases[binit-1], bases[bend-1], 20);
   delay(700);
+}
+
+void voltar(){
+  moveServo(3, 200, 400, 9);
+  delay(500);
+
+  moveServo(1, 250, 500, 7);
+  delay(500);
 }
