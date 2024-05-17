@@ -17,22 +17,21 @@ void setup() {
   pwm.begin(); // inicializando módulo PWM
   pwm.setPWMFreq(SERVO_FREQ); //definindo frequencia
 
-
   delay(1000); // delay pra posição inicial
   posInit(); // setar posição inicial
   delay(1500);
 
-  agaichar();
-  pegar();
-  gbase(3, 4);
-  colocar();
-  gbase(4, 3);
+  take(3, 2);
+  take(2, 1);
+  take(1, 5);
+  take(5, 4);
+  take(4, 3);
+
   voltar();
-}
 
-void loop(){
+  }
 
-}
+void loop(){}
 
 void moveServo(uint8_t n, int init, int end, int del){
   if(init > end){
@@ -86,7 +85,7 @@ void colocar(){
   delay(500);
 
   moveServo(5, 250, 50, 10);    // soltando
-  delay(1000);
+  delay(500);
 
   moveServo(2, 500, 400, 9);    // levantando
   delay(500);
@@ -99,9 +98,22 @@ void gbase(int binit, int bend){
 }
 
 void voltar(){
+  moveServo(1, 250, 450, 7);
+  delay(500);
+
   moveServo(3, 200, 400, 9);
   delay(500);
 
-  moveServo(1, 250, 500, 7);
-  delay(500);
+}
+
+void take(int obj, int pos){ //valores de base inseridos
+  gbase(3, obj);
+  agaichar();
+  pegar();
+  gbase(obj, pos);
+
+  colocar();
+
+  gbase(pos, 3);
+
 }
