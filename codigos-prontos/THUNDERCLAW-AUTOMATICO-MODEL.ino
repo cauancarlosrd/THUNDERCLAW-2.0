@@ -21,6 +21,8 @@ void setup() {
   posInit(); // setar posição inicial
   delay(1500);
 
+  // ATENÇÃO: A GARRA FOI REMONTADA. TALVEZ AS POSIÇÕES DAS FUNÇÕES moveServo VÃO DAR ERRADO. QUEM SABE, CONSTRUA UMA MONTAGEM DA GARRA PADRÃO PARA QUE NÃO SEJA NECESSÁRIO ALTERAR ESTES VALORES NA PRÓXIMA MONTAGEM DA GARRA.
+  
   take(3, 2);
   take(2, 1);
   take(1, 5);
