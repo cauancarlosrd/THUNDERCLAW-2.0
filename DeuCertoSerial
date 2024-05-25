@@ -1,0 +1,49 @@
+import serial  # Certifique-se de que pyserial está instalado corretamente
+import serial.tools.list_ports
+import time
+
+# Abre a conexão serial na porta COM7 com baud rate 9600
+ser = serial.Serial('COM7', baudrate=9600, timeout=1, write_timeout=1)
+
+############# Verificar portas ativas ############
+def verifica_portas():
+    portas_ativas = []
+    portas = serial.tools.list_ports.comports()
+    for porta in portas:
+        portas_ativas.append((porta.device, porta.description))
+    return portas_ativas
+
+######################## Escrever na porta #####################
+def escrever_porta():
+    try:
+        valor = input('Digite o valor a ser enviado: ')
+        ser.write(valor.encode())  # Convertendo para bytes
+        time.sleep(1)  # Espera um segundo para garantir que a resposta chegue
+
+        data = ser.readline()
+        print('/nResposta %s' % data)
+    except serial.SerialException:  # Corrigido a exceção
+        print('ERRO: Verifique se há algum dispositivo conectado na porta!')
+
+########################### Main ###################
+if __name__ == '__main__':
+    while True:
+        print('========================')
+        print('==== 1 - Verificar portas existentes ====')
+        print('==== 3 - Escrever valor na porta serial ====')
+        print('========================')
+        try:
+            opcao = int(input('Digite a opção: '))
+        except ValueError:
+            print('Entrada inválida! Por favor, digite um número.')
+            continue
+
+        if opcao == 1:
+            print("Numero da porta | Nome da porta")
+            portas_ativas = verifica_portas()
+            for numero, (port, desc) in enumerate(portas_ativas):
+                print("      %d         |    %s" % (numero, desc))
+        elif opcao == 3:
+            escrever_porta()
+        else:
+            print('Entrada inválida!')
