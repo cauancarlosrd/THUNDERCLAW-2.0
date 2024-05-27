@@ -11,47 +11,151 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(0x40);
 #define SERVOMAX  610
 #define SERVO_FREQ 60 // largura de período PWM
 
-int bases[] = {110, 210, 305, 400, 500};
+int bases[] = {140, 240, 335, 430, 520};
 
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 16, 2);
 
 // setup
 void setup() {
 
-  lcd.init();
+  // DESCOMENTAR AQUI!!!!!!!!!!!!!!!!
+  /*lcd.init();
   lcd.backlight();
-  lcd.clear();
+  lcd.clear();*/
 
   pwm.begin(); // inicializando módulo PWM
   pwm.setPWMFreq(SERVO_FREQ); //definindo frequencia
 
-  lcd.setCursor(0,0);
+  //lcd.setCursor(0,0);
 
-  lcd.print("THUNDERCLAW 2.0 ");
-  delay(200);
+  //lcd.print("THUNDERCLAW 2.0 ");
+  //delay(200);
 
-  posInit(); // setar posição inicial
-  delay(1500);
+  //posInit(); // setar posição inicial
+
+  pwm.setPWM(5, 0, 150);
+  pwm.setPWM(0, 0, bases[2]);
+
+  //delay(1500);
 
   lcd.setCursor(0,1);
+
+
+  /*for(double i = 0; i <= 90; i++){
+    pwm.setPWM(1, 0, 160-(i/6));
+    pwm.setPWM(2, 0, 480-i);
+    pwm.setPWM(3, 0, 130+(i/1.3));
+    delay(9);
+  }*/
+  
+
+    for(double i = 0; i <= 60; i++){
+    pwm.setPWM(2, 0, 480-i);
+    pwm.setPWM(3, 0, 130+(i/1.3));
+    pwm.setPWM(1, 0, 160-(i/6));
+    delay(9);
   }
 
-void loop(){
-  agaichar();
+  }
 
-  take(1, 5);
-  take(3, 1);
+
+
+void loop(){
+
+  //agaichar();
+  // take(1, 5);
+  /*take(3, 1);
   take(2, 4);
   take(1, 2);
   take(5, 3);
   take(2, 5);
   take(3, 1);
   take(5, 3);
-  take(4, 2);
+  take(4, 2);*/
 
-  voltar();
+  //voltar();
 
+
+  /*pwm.setPWM(1, 0, 160); //DESCENDOOO
+  pwm.setPWM(2, 0, 480);
+  pwm.setPWM(3, 0, 110);
+  delay(500);
+  pwm.setPWM(1, 0, 160); 
+  pwm.setPWM(2, 0, 400);
+  pwm.setPWM(3, 0, 190);
+  delay(500);*/
+  
+
+// IR PEGAR
+  // indo
+  for(double i = 0; i <= 60; i++){
+    pwm.setPWM(2, 0, 480-i);
+    pwm.setPWM(3, 0, 130+(i/1.3));
+    pwm.setPWM(1, 0, 160-(i/6));
+    delay(9);
+  }
+
+  //CATAR
+  delay(700);
+  pwm.setPWM(5, 0, 180);
+  delay(500);
+
+  pwm.setPWM(1, 0, 155);
+  delay(500);
+
+
+  // voltando
+  for(double i = 60; i >= 0; i--){
+    pwm.setPWM(2, 0, 480-i);
+    pwm.setPWM(3, 0, 130+(i/1.3));
+    pwm.setPWM(1, 0, 170-(i/6));
+    delay(7);
+  }
+  delay(700);
+
+
+ gbase(3, 5);
+
+
+//POR DE VOLTA
+  // indo
+  for(double i = 0; i <= 60; i++){
+    pwm.setPWM(2, 0, 480-i);
+    pwm.setPWM(3, 0, 130+(i/1.3));
+    pwm.setPWM(1, 0, 170-(i/6));
+    delay(9);
+  }
+  delay(700);
+
+  pwm.setPWM(1, 0, 150);
+  delay(500);
+  
+  // CATAR
+  pwm.setPWM(5, 0, 130);
+  delay(500);
+
+  pwm.setPWM(1, 0, 155);
+  delay(500);
+
+
+  // voltando
+  for(double i = 60; i >= 0; i--){
+    pwm.setPWM(2, 0, 480-i);
+    pwm.setPWM(3, 0, 130+(i/1.3));
+    pwm.setPWM(1, 0, 170-(i/6));
+    delay(7);
+  }
+  delay(700);
+
+ gbase(5, 3); 
 }
+
+
+
+
+
+
+
 
 void moveServo(uint8_t n, int init, int end, int del){
   if(init > end){
@@ -69,29 +173,30 @@ void moveServo(uint8_t n, int init, int end, int del){
   }
 }
 
-void posInit(){
-  pwm.setPWM(0, 0, 330); //base
-  delay(500);
-  pwm.setPWM(1, 0, 450); //b1
-  delay(200);
-  pwm.setPWM(2, 0, 400); //b2
-  delay(500);
-  pwm.setPWM(3, 0, 400); //b3
-  delay(500);
-  pwm.setPWM(5, 0, 50);  //gripper
-}
-
-void agaichar(){
-  for(int i = 200; i >= 0; i--){
-    pwm.setPWM(1, 0, (250+i));
-    pwm.setPWM(3, 0, (200+i));
-    delay(5);
-  }
-
+void posInit(){ // posição inicial. Serve também pra girar tudo
+  pwm.setPWM(0, 0, bases[2]); //base na posição 3, a central
   delay(300);
+  pwm.setPWM(1, 0, 380); //b1
+  delay(300);
+  pwm.setPWM(2, 0, 350); //b2
+  delay(300);
+  pwm.setPWM(3, 0, 240); //b3
+  delay(300);
+  pwm.setPWM(5, 0, 200);  //gripper
 }
 
-void pegar(){
+
+void voltar(){ //voltar pro posInit
+  // vao estar nas posições 250 e 200 o 1 e o 3, respectivamente
+  for(int i = 0; i <= 200; i++){
+    pwm.setPWM(1, 0, 250+i);
+    pwm.setPWM(3, 0, 200+i);
+    delay(7);
+  }
+  delay(500);
+}
+
+void pegar(){ // abaixar, pegar o objeto, voltar pra posInit
   moveServo(2, 400, 500, 8); //abaixando
   delay(300);
 
@@ -102,7 +207,7 @@ void pegar(){
   delay(500);
 }
 
-void colocar(){
+void colocar(){ // abaixar, soltar objeto, voltar pra posInit
   moveServo(2, 400, 500, 9);    // pondo no chão
   delay(300);
 
@@ -115,23 +220,14 @@ void colocar(){
 
 }
 
-void gbase(int binit, int bend){
+void gbase(int binit, int bend){ // girar base com um delay determinado AQUI
 
-  moveServo(0, bases[binit-1], bases[bend-1], 7);
-  delay(300);
+  moveServo(0, bases[binit-1], bases[bend-1], 5);
+  delay(1000);
 
 }
 
-void voltar(){
-  for(int i = 0; i <= 200; i++){
-    pwm.setPWM(1, 0, (450-i));
-    pwm.setPWM(3, 0, (400-i));
-    delay(5);
-  }
-  delay(500);
-}
-
-void take(int obj, int pos){ //valores de base inseridos
+void take(int obj, int pos){ // posição inicial, posição final e levar de um pro outro
   lcd.print(obj);
   lcd.print(" para ");
   lcd.print(pos);
@@ -144,3 +240,17 @@ void take(int obj, int pos){ //valores de base inseridos
   gbase(pos, 3);
   
 }
+
+/*void agaichar(){ // inutilizado. transformou-se no posInit
+   //for(int i = 200; i >= 0; i--){
+    //pwm.setPWM(1, 0, (250+i));
+    //pwm.setPWM(3, 0, (200+i));
+    //delay(7);
+  //} 
+
+  pwm.setPWM(1, 0, 380);
+  pwm.setPWM(2, 0, 350);
+  pwm.setPWM(3, 0, 400);
+
+  delay(300);
+}*/
