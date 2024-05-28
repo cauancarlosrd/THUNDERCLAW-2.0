@@ -12,6 +12,7 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(0x40);
 #define SERVO_FREQ 60 // largura de período PWM
 
 int bases[] = {140, 240, 335, 430, 520};
+int lastBase = 3;
 
 double c1 = 380;
 double c2 = 350;
@@ -29,11 +30,11 @@ void setup() {
 
 void loop() {
   moveObj(3, 5);
-  moveObj(5, 1);
-  moveObj(1, 4);
-  moveObj(4, 2);
-  moveObj(2, 4);
   moveObj(4, 3);
+  moveObj(5, 1);
+  moveObj(3, 2);
+  moveObj(1, 3);
+  moveObj(2, 4);
 }
 
 void moveServo(uint8_t n, int init, int end, int del){ //move um servo de cada vez
@@ -105,6 +106,7 @@ void gripper(bool state){ // abrir ou fechar a garra
 void gbase(int binit, int bend){ // girar base com um delay determinado AQUI
   moveServo(0, bases[binit-1], bases[bend-1], 3);
   delay(300);
+  lastBase = bend;
 }
 
 void move3Servos(int servo1, int servo2, int servo3, int init1, int init2, int init3, int end1, int end2, int end3, int del){
@@ -147,6 +149,7 @@ void move3Servos(int servo1, int servo2, int servo3, int init1, int init2, int i
 
 
 void moveObj(int objInit, int objEnd){
+  gbase(lastBase, objInit);
   down();
   take();
   up();
