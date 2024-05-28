@@ -42,7 +42,7 @@ def update_and_display_color_bases(frame, color_objects):
     }
 
     for color, (cx, cy, cw, ch) in color_objects:
-        if 47 < cx < 123 and 262 < cy < 338:
+        if 24 < cx < 100 and 262 < cy < 338:
             color_bases[color] = 1
         elif 148 < cx < 224 and 131 < cy < 207:
             color_bases[color] = 2
@@ -50,9 +50,9 @@ def update_and_display_color_bases(frame, color_objects):
             color_bases[color] = 3
         elif 415 < cx < 493 and 145 < cy < 220:
             color_bases[color] = 4
-        elif 505 < cx < 580 and 252 < cy < 328:
+        elif 543 < cx < 623 and 252 < cy < 328:
             color_bases[color] = 5
-
+    
     color_info = {}
 
     for color, base in color_bases.items():
@@ -80,7 +80,7 @@ while True:
 
     frame = cv2.flip(frame, 1)
 
-    cv2.rectangle(frame, (47, 262), (123, 338), (255, 255, 255), 2)
+    cv2.rectangle(frame, (24, 262), (100, 338), (255, 255, 255), 2)
     cv2.putText(frame, '1', (85, 350), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
     cv2.rectangle(frame, (148, 131), (224, 207), (255, 255, 255), 2)
     cv2.putText(frame, '2', (137, 189), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
@@ -88,7 +88,7 @@ while True:
     cv2.putText(frame, '3', (306, 125), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
     cv2.rectangle(frame, (415, 145), (493, 220), (255, 255, 255), 2)
     cv2.putText(frame, '4', (475, 189), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-    cv2.rectangle(frame, (505, 252), (580, 328), (255, 255, 255), 2)
+    cv2.rectangle(frame, (543, 252), (623, 328), (255, 255, 255), 2)
     cv2.putText(frame, '5', (525, 350), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
     #cv2.rectangle(frame, (comp"esq",altura"cima"), (comp "dir",altura"baixo")
 
