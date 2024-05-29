@@ -2,28 +2,32 @@ import cv2
 import numpy as np
 import serial
 
-ser = serial.Serial('COM3', baudrate=9600, timeout=1, write_timeout=1)
+ser = serial.Serial('COM7', baudrate=9600, timeout=1, write_timeout=1)
 
-lower_blue = np.array([90, 50, 50])
+lower_blue = np.array([90, 50, 70])
 upper_blue = np.array([130, 255, 255])
 
-lower_red = np.array([0, 50, 50])
-upper_red = np.array([10, 255, 255])
+lower_red_1 = np.array([0, 50, 70])
+upper_red_1 = np.array([10, 255, 255])
+lower_red_2 = np.array([170, 50, 70])
+upper_red_2 = np.array([180, 255, 255])
 
-lower_green = np.array([50, 100, 100])
-upper_green = np.array([70, 255, 255])
+lower_green = np.array([40, 50, 50])
+upper_green = np.array([80, 255, 255])
 
 def detect_color(frame):
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     mask_blue = cv2.inRange(hsv, lower_blue, upper_blue)
-    mask_red = cv2.inRange(hsv, lower_red, upper_red)
+    mask_red_1 = cv2.inRange(hsv, lower_red_1, upper_red_1)
+    mask_red_2 = cv2.inRange(hsv, lower_red_2, upper_red_2)
+    mask_red = cv2.add(mask_red_1, mask_red_2)
     mask_green = cv2.inRange(hsv, lower_green, upper_green)
 
     color_objects = []
 
-    for contours, color in zip([mask_blue, mask_red, mask_green], ['Blue', 'Red', 'Green']):
-        contours, _ = cv2.findContours(contours, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    for mask, color in zip([mask_blue, mask_red, mask_green], ['Blue', 'Red', 'Green']):
+        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         for cnt in contours:
             area = cv2.contourArea(cnt)
             if area > 500:
@@ -64,7 +68,7 @@ def update_and_display_color_bases(frame, color_objects):
 def to_byte(value):
     return str(value).encode()
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 # Variáveis para armazenar a posição da cor azul em cada base branca
 azul = 0
