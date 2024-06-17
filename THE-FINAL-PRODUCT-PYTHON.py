@@ -26,23 +26,23 @@ def detect_color(frame):
 
     color_objects = []
 
-    for mask, color in zip([mask_blue, mask_red, mask_green], ['Blue', 'Red', 'Green']):
+    for mask, color in zip([mask_blue, mask_red, mask_green], ['azul', 'vermelho', 'verde']):
         contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         for cnt in contours:
             area = cv2.contourArea(cnt)
             if area > 500:
                 x, y, w, h = cv2.boundingRect(cnt)
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                cv2.putText(frame, f'{color} ({x}, {y})', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                cv2.putText(frame, f'{color} ', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                 color_objects.append((color, (x, y, w, h)))
 
     return frame, color_objects
 
 def update_and_display_color_bases(frame, color_objects):
     color_bases = {
-        'Blue': None,
-        'Red': None,
-        'Green': None
+        'azul': None,
+        'vermelho': None,
+        'verde': None
     }
 
     for color, (cx, cy, cw, ch) in color_objects:
@@ -68,7 +68,7 @@ def update_and_display_color_bases(frame, color_objects):
 def to_byte(value):
     return str(value).encode()
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 # Variáveis para armazenar a posição da cor azul em cada base branca
 azul = 0
@@ -109,11 +109,11 @@ while True:
 
     # Atualizando variáveis com a posição das cores nas bases brancas
     for color, base in color_info.items():
-        if color == 'Blue':
+        if color == 'azul':
             azul = base
-        elif color == 'Red':
+        elif color == 'vermelho':
             vermelho = base
-        elif color == 'Green':
+        elif color == 'verde':
             verde = base
 
     # Exibindo valores armazenados nas variáveis
